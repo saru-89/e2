@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commerce App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+
+        header {
+            height: 14vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            height: 100%;
+            width: 95%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav>a>img {
+            height: 90%;
+            cursor: pointer;
+        }
+
+        nav .nav-links {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-weight: bolder;
+        }
+
+        nav .search-bar {
+            width: 25%;
+            height: 60%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border: 2px solid #eeeee4;
+            border-radius: 5px;
+        }
+
+        nav .search-bar input {
+            height: 40px;
+            width: 80%;
+            border: 0px;
+            outline: none;
+        }
+
+        nav .nav-icons {
+            height: 40px;
+            width: 15%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .nav-icon-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .logo {
+            width: 90px;
+        }
+
+        .nav-icon-item>p {
+            font-size: 9px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .cart-container {
+            width: 70%;
+            margin: 30px auto;
+        }
+
+        .cart-header {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .product-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-card>img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .product-details {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .product-cat {
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .price {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .btn-delete {
+            all: unset;
+            background: #ff4d4d;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: background 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #cc0000;
+        }
+
+        .cart-summary {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .summary-title {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-total {
+            font-weight: 800;
+            font-size: 18px;
+            margin-top: 10px;
+            border-top: 2px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/index.html">
+                <img class="logo" src="https://aartisto.com/wp-content/uploads/2020/11/myntra.png" alt="">
+            </a>
+            <div class="nav-links">
+                <a href="">MEN</a>
+                <a href="">WOMEN</a>
+                <a href="">KIDS</a>
+                <a href="">HOME</a>
+                <a href="">BEAUTY</a>
+                <a href="">GENZ</a>
+                <a href="">STUDIO</a>
+            </div>
+            <form class="search-bar" action="search.html" method="get">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" name="q" placeholder="Search for products...">
+            </form>
+            <div class="nav-icons">
+                <div class="nav-icon-item">
+                    <i class="fa-solid fa-user"></i>
+                    <p>Profile</p>
+                </div>
+                <div class="nav-icon-item">
+                    <i class="fa-solid fa-heart"></i>
+                    <p>Wishlist</p>
+                </div>
+                <a href="/cart.html">
+                    <div class="nav-icon-item">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <p>Bag</p>
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="cart-container">
+        <h1 class="cart-header">My Shopping Bag</h1>
+        <div class="produt-list"></div>
+        <div class="cart-summary">
+            <h2 class="summary-title">Price Details</h2>
+            <div class="summary-item">
+                <span>Total MRP</span>
+                <span id="total-mrp">₹0</span>
+            </div>
+            <div class="summary-item">
+                <span>Discount on MRP</span>
+                <span id="discount-mrp" style="color: green;">-₹0</span>
+            </div>
+            <div class="summary-item summary-total">
+                <span>Total Amount</span>
+                <span id="total-amount">₹0</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function deleteFromCart(id) {
+            let allProducts = JSON.parse(localStorage.getItem("products")) || [];
+            let productWithoutThatId = allProducts.filter((product) => product.id !== id);
+            localStorage.setItem("products", JSON.stringify(productWithoutThatId));
+            window.location.reload();
+        }
+
+        const fetchProducts = () => {
+            let allProducts = JSON.parse(localStorage.getItem("products")) || [];
+            const productList = document.querySelector(".produt-list");
+            let totalMRP = 0;
+
+            if (allProducts.length > 0) {
+                allProducts.forEach((product) => {
+                    totalMRP += product.price;
+
+                    const productCard = document.createElement("div");
+                    productCard.setAttribute('class', 'product-card');
+
+                    const image = document.createElement('img');
+                    image.setAttribute('src', product.thumbnail);
+                    image.setAttribute('alt', 'broken image');
+
+                    const productDetails = document.createElement('div');
+                    productDetails.setAttribute('class', 'product-details');
+
+                    const p1 = document.createElement('p');
+                    p1.setAttribute('class', 'product-name');
+                    p1.innerText = product.title;
+
+                    const p2 = document.createElement('p');
+                    p2.setAttribute('class', 'product-cat');
+                    p2.innerText = product.category;
+
+                    const p3 = document.createElement('p');
+                    p3.setAttribute('class', 'price');
+                    p3.innerText = '₹' + product.price;
+
+                    const btnDelete = document.createElement('button');
+                    btnDelete.setAttribute('class', 'btn-delete');
+                    btnDelete.addEventListener('click', () => {
+                        deleteFromCart(product.id);
+                    });
+                    btnDelete.innerText = 'Remove';
+
+                    productDetails.appendChild(p1);
+                    productDetails.appendChild(p2);
+                    productDetails.appendChild(p3);
+
+                    productCard.appendChild(image);
+                    productCard.appendChild(productDetails);
+                    productCard.appendChild(btnDelete);
+
+                    productList.appendChild(productCard);
+                });
+            } else {
+                productList.innerHTML = "<p>Your cart is empty.</p>";
+            }
+
+            // Update summary
+            const discount = 0; // Assuming a fixed discount for now
+            document.getElementById('total-mrp').innerText = '₹' + totalMRP.toFixed(2);
+            document.getElementById('discount-mrp').innerText = '-₹' + discount.toFixed(2);
+            document.getElementById('total-amount').innerText = '₹' + (totalMRP - discount).toFixed(2);
+        }
+
+        fetchProducts();
+    </script>
+
+</body>
+
+</html>

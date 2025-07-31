@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commerce App - Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+        integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+
+        header {
+            height: 14vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: -5px -5px 12px 0px;
+        }
+
+        nav {
+            height: 100%;
+            width: 95%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        nav>a>img {
+            height: 90%;
+            cursor: pointer;
+        }
+
+        nav .nav-links {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        nav .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-weight: bolder;
+
+        }
+
+        nav .search-bar {
+            width: 25%;
+            height: 60%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            border: 2px solid #eeeee4;
+        }
+
+        nav .search-bar input {
+            height: 40px;
+            width: 80%;
+            border: 0px;
+        }
+
+        nav .nav-icons {
+            height: 40px;
+            width: 15%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .nav-icon-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .logo {
+            width: 90px;
+        }
+
+        .nav-icon-item>p {
+            font-size: 9px;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .product-card {}
+
+        .product-card>img {
+            width: 200px;
+            height: 200px;
+
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 800;
+            margin-left: 10px;
+            margin-top: 15px;
+        }
+
+        .product-cat {
+            margin-left: 10px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .price {
+            margin-left: 10px;
+        }
+
+        .produt-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            justify-items: center;
+            gap: 15px;
+            margin: 30px 0px;
+        }
+
+        .btn-cart {
+            all: unset;
+            background: #99b2ff;
+            padding: 6px 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="/index.html">
+                <img class="logo" src="https://aartisto.com/wp-content/uploads/2020/11/myntra.png" alt="">
+            </a>
+
+            <div class="nav-links">
+                <a href="">MEN</a>
+                <a href="">WOMEN</a>
+                <a href="">KIDS</a>
+                <a href="">HOME</a>
+                <a href="">BEAUTY</a>
+                <a href="">GENZ</a>
+                <a href="">STUDIO</a>
+            </div>
+
+            <form class="search-bar" action="search.html" method="get">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" name="q" placeholder="Search for products...">
+            </form>
+
+            <div class="nav-icons">
+                <div class="nav-icon-item">
+                    <i class="fa-solid fa-user"></i>
+                    <p>Profile</p>
+                </div>
+                <div class="nav-icon-item">
+                    <i class="fa-solid fa-heart"></i>
+                    <p>Wishlist</p>
+                </div>
+                <a href="/cart.html">
+                    <div class="nav-icon-item">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <p>Bag</p>
+                    </div>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section>
+        <div class="produt-list">
+        </div>
+    </section>
+
+    <script>
+        function addToCart(product) {
+            let allProducts = JSON.parse(localStorage.getItem("products")) || [];
+            allProducts.push(product);
+            localStorage.setItem("products", JSON.stringify(allProducts));
+        }
+
+        const fetchProducts = async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchQuery = urlParams.get('q').toLowerCase();
+            const res = await fetch('https://dummyjson.com/products');
+            const data = await res.json();
+
+            if (data) {
+                const filteredProducts = data.products.filter(product =>
+                    product.title.toLowerCase().includes(searchQuery) ||
+                    product.category.toLowerCase().includes(searchQuery)
+                );
+
+                const productList = document.querySelector(".produt-list");
+                filteredProducts.forEach((product) => {
+                    let productCart = document.createElement("div");
+                    productCart.setAttribute('class', 'product-card');
+
+                    let image = document.createElement('img');
+                    image.setAttribute('src', product.thumbnail);
+                    image.setAttribute('alt', 'broken image');
+
+                    let p1 = document.createElement('p');
+                    p1.setAttribute('class', 'product-name');
+                    p1.innerText = product.title;
+
+                    let p2 = document.createElement('p');
+                    p2.setAttribute('class', 'product-cat');
+                    p2.innerText = product.category;
+
+                    let p3 = document.createElement('p');
+                    p3.setAttribute('class', 'price');
+                    p3.innerText = '₹' + product.price;
+
+                    let btnCart = document.createElement('button');
+                    btnCart.setAttribute('class', 'btn-cart');
+                    btnCart.addEventListener('click', () => {
+                        addToCart(product);
+                    });
+                    btnCart.innerText = 'Add to Cart';
+
+                    productCart.appendChild(image);
+                    productCart.appendChild(p1);
+                    productCart.appendChild(p2);
+                    productCart.appendChild(p3);
+                    productCart.appendChild(btnCart);
+
+                    productList.appendChild(productCart);
+                });
+            }
+        };
+
+        fetchProducts();
+    </script>
+</body>
+
+</html>
